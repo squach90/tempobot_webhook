@@ -3,7 +3,7 @@ import fetch from "node-fetch";
 
 const app = express();
 const PORT = 3000; // Change ce port si nécessaire
-const serverURL = "https://tempobot_webhook.onrender.com"; // Remplace par l'URL de ton serveur
+const serverURL = "https://tempobot-webhook.onrender.com"; // Remplace par l'URL de ton serveur
 
 // Endpoint pour retourner la couleur de demain en texte simple
 app.get("/tempo", async (req, res) => {
