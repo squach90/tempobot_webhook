@@ -54,15 +54,6 @@ async function keepAlive() {
 }
 
 // Créer un serveur HTTP pour écouter sur le port spécifié par Render
-const port = process.env.PORT || 3001;
-http
-  .createServer((req, res) => {
-    res.writeHead(200, { "Content-Type": "text/plain" });
-    res.end("Bot is running\n");
-  })
-  .listen(port, () => {
-    console.log(`Server is listening on port ${port}`);
-  });
 
 // Ping le serveur toutes les 10 minutes pour le garder actif
 setInterval(keepAlive, 600000);
