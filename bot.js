@@ -3,6 +3,7 @@ import fetch from "node-fetch";
 
 const app = express();
 const PORT = 3000; // Change ce port si nécessaire
+const serverURL = "https://tempobot_webhook.onrender.com"; // Remplace par l'URL de ton serveur
 
 // Endpoint pour retourner la couleur de demain en texte simple
 app.get("/tempo", async (req, res) => {
@@ -34,6 +35,36 @@ app.get("/tempo", async (req, res) => {
     );
   }
 });
+
+async function keepAlive() {
+  try {
+    const response = await fetch(serverURL, {
+      method: "GET",
+    });
+
+    if (!response.ok) {
+      throw new Error("Erreur lors du ping du serveur");
+    }
+
+    console.log("Ping réussi:", new Date().toLocaleTimeString());
+  } catch (error) {
+    console.error("Erreur lors du ping du serveur:", error);
+  }
+}
+
+// Créer un serveur HTTP pour écouter sur le port spécifié par Render
+const port = process.env.PORT || 3000;
+http
+  .createServer((req, res) => {
+    res.writeHead(200, { "Content-Type": "text/plain" });
+    res.end("Bot is running\n");
+  })
+  .listen(port, () => {
+    console.log(`Server is listening on port ${port}`);
+  });
+
+// Ping le serveur toutes les 10 minutes pour le garder actif
+setInterval(keepAlive, 600000);
 
 // Lancer le serveur
 app.listen(PORT, () => {
