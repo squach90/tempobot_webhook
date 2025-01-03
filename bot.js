@@ -54,7 +54,7 @@ async function keepAlive() {
 }
 
 // Créer un serveur HTTP pour écouter sur le port spécifié par Render
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 http
   .createServer((req, res) => {
     res.writeHead(200, { "Content-Type": "text/plain" });
